@@ -1,0 +1,40 @@
+﻿@model ST10385543_CLDV6211_Part1.Business.Cart.ShoppingCartHandler
+
+<h1>Shopping Cart</h1>
+
+<a class="btn btn-primary text-uppercase" href="@Url.Action("Index", "Home")">
+    Add More Items
+</a>
+<br/>
+<table class="table"> 
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+           <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Product.Price</td>
+                <td>@item.TotalPrice</td>
+                <td>
+                    <form asp-action="RemoveFromCart" method="post">
+                        <input type="hidden" name="productId" value="@item.Product.Id"/>
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </td>
+           </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" asp-action="Checkout" asp-controller="ShoppingCart">
+    <button type="submit" class="btn btn-outline-success">Checkout</button>
+</form>
